@@ -15,6 +15,7 @@
 package timex
 
 import (
+	"fmt"
 	"regexp"
 	"testing"
 	"time"
@@ -35,5 +36,17 @@ func TestTimeFormats(t *testing.T) {
 		actual, err := Parse(tx)
 		assert.NoError(t, true, err)
 		assert.Equal(t, true, expected.UnixNano(), actual.UnixNano())
+	}
+}
+
+func ExampleTimexParse() {
+	t1, _ := time.Parse(time.RFC3339, "2006-01-02T15:04:05+07:00")
+	t2, err := Parse("2006-01-02T15:04:05+07:00")
+	if err != nil {
+		fmt.Println(err)
+	} else if t1.UnixNano() != t2.UnixNano() {
+		fmt.Println("%d != %d", t1.UnixNano(), t2.UnixNano())
+	} else {
+		fmt.Println(t2)
 	}
 }
