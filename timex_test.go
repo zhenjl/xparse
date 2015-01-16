@@ -39,7 +39,7 @@ func TestTimeFormats(t *testing.T) {
 	}
 }
 
-func ExampleTimexParse() {
+func ExampleParse() {
 	t1, _ := time.Parse(time.RFC3339, "2006-01-02T15:04:05+07:00")
 	t2, err := Parse("2006-01-02T15:04:05+07:00")
 	if err != nil {
