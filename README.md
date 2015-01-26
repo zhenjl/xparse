@@ -1,24 +1,8 @@
-timex
+parse
 =====
 
-Timex is a time parsing utility for Go. It exposes a set of time formats that it knows how to parse, and a single function `Parse()` to parse any time string.
+A collection of parsing utilities:
 
-```
-import (
-	"fmt"
-	"time"
-	"github.com/dataence/timex"
-)
-
-func main() {
-	t1, _ := time.Parse(time.RFC3339, "2006-01-02T15:04:05+07:00")
-	t2, err := timex.Parse("2006-01-02T15:04:05+07:00")
-	if err != nil {
-		fmt.Println(err)
-	} else if t1.UnixNano() != t2.UnixNano() {
-		fmt.Println("%d != %d", t1.UnixNano(), t2.UnixNano())
-	} else {
-		fmt.Println(t2)
-	}
-}
-```
+* xtime - time parsing utility in Go. It exposes a set of time formats that it knows how to parse, and a single function `Parse()` to parse any time string.
+* xtld - TLD parser that extracts the top-level-domain out from the given string. It uses the data set from
+https://www.publicsuffix.org/list/effective_tld_names.dat.

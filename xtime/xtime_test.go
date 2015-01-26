@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package timex
+package xtime
 
 import (
 	"fmt"
@@ -20,7 +20,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/dataence/assert"
+	"github.com/stretchr/testify/require"
 )
 
 var (
@@ -32,10 +32,10 @@ func TestTimeFormats(t *testing.T) {
 	for _, f := range TimeFormats {
 		tx := re2.ReplaceAllString(re1.ReplaceAllString(f, " "), "+")
 		expected, err := time.Parse(f, tx)
-		assert.NoError(t, true, err)
+		require.NoError(t, err)
 		actual, err := Parse(tx)
-		assert.NoError(t, true, err)
-		assert.Equal(t, true, expected.UnixNano(), actual.UnixNano())
+		require.NoError(t, err)
+		require.Equal(t, expected.UnixNano(), actual.UnixNano())
 	}
 }
 

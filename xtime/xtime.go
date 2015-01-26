@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package timex
+package xtime
 
 import (
 	"fmt"
@@ -60,7 +60,7 @@ var TimeFormats []string = []string{
 
 func Parse(t string) (time.Time, error) {
 	tx := strings.ToLower(t)
-	cur := timeFsmRoot
+	cur := timeTreeRoot
 
 	for i, r := range tx {
 		typ := tnType(r)
@@ -104,14 +104,14 @@ const (
 )
 
 var (
-	timeFsmRoot *timeNode
+	timeTreeRoot *timeNode
 )
 
 func init() {
-	timeFsmRoot = buildTimeFSM()
+	timeTreeRoot = buildTimeTree()
 }
 
-func buildTimeFSM() *timeNode {
+func buildTimeTree() *timeNode {
 	root := &timeNode{ntype: timeNodeRoot}
 
 	for i, f := range TimeFormats {
