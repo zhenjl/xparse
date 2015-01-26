@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// xtime is a time parser that parses the time without knowning the exact format.
 package xtime
 
 import (
