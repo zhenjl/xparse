@@ -18,10 +18,11 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/require"
+	"golang.org/x/net/publicsuffix"
 )
 
 func TestXtldTldlen(t *testing.T) {
-	var testdata map[string]string = map[string]string{
+	testdata := map[string]string{
 		"abc.com":       "com",
 		"www.abc.com":   "com",
 		"中国":            "中国",
@@ -30,8 +31,13 @@ func TestXtldTldlen(t *testing.T) {
 	}
 
 	for k, v := range testdata {
-		require.Equal(t, TLDlen(k), len(v))
-		require.Equal(t, TLD(k), v)
+		sfx := TLD(k)
+		require.Equal(t, sfx, v)
+		require.Equal(t, len(sfx), len(v))
+
+		// PublicSuffix fails for "xxxxx"
+		//psfx, _ := publicsuffix.PublicSuffix(k)
+		//require.Equal(t, sfx, psfx)
 	}
 }
 
@@ -40,5 +46,20 @@ func BenchmarkXtldTldLen(b *testing.B) {
 	ss := "中国"
 	for i := 0; i < b.N; i++ {
 		TLDlen(ss)
+	}
+}
+
+func BenchmarkXtldTld(b *testing.B) {
+	//ss := "england.co.uk"
+	ss := "中国"
+	for i := 0; i < b.N; i++ {
+		TLD(ss)
+	}
+}
+
+func BenchmarkPublicsuffix(b *testing.B) {
+	ss := "中国"
+	for i := 0; i < b.N; i++ {
+		publicsuffix.PublicSuffix(ss)
 	}
 }
