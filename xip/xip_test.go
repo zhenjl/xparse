@@ -18,7 +18,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/require"
-	"github.com/surgebase/glog"
+	"github.com/surge/glog"
 )
 
 func TestParseIPv4Success(t *testing.T) {
